@@ -9,11 +9,25 @@ $color-dark-l: #545454;
 $color-dark-xl: #4C4C4C;
 $color-dark-2xl: #444444;
 $color-dark-3xl: #292929;
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 1200px) and (max-width: 1201px) {
+    * {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
     .header {
-        padding-left: 30px;
-        padding-right: 30px;
         margin-top: -30px;
+        & .wrapper {
+            max-width: 768px;
+        }
+    }
+    .logo {
+        padding-left: 30px;
+    }
+    .menu {
+        margin-right: 30px;
     }
     .list {
         padding-top: 16px;
@@ -118,8 +132,62 @@ $color-dark-3xl: #292929;
                         height: 168px;
                         width: 230px;
                     }
+                    &-food {
+                        div {
+                            margin-top: 0px;
+                        }
+                    }
+                    &-transporation {
+                        div {
+                            margin-top: 0px;
+                        }
+                    }
+                    &-toys {
+                        div {
+                            margin-top: 0px;
+                        }
+                    }
                 }
             }
+        }
+    }
+    .donation {
+        min-height: 780px;
+        margin-top: 3px;
+        &__wrapper {
+            flex-direction: column;
+        }
+        &__image__wrapper {
+            margin-top: -1px;
+            order: 2;
+        }
+        &__content {
+            margin-left: 32px;
+            margin-top: 2px;
+            &__description {
+                width: 370px;
+                margin-bottom: 53px;
+            }
+        }
+    }
+    .footer {
+        min-height: 639px;
+        padding: 0;
+        margin: 0;
+        &__wrapper {
+            flex-direction: column;
+        }
+        &__content {
+            padding-top: 38px;
+            padding-left: 269px;
+            &__located {
+                margin-left: -101px;
+            }
+        }
+        &__image {
+            order: 3;
+            margin-left: -432px;
+            margin-top: 49px;
         }
     }
 }
@@ -148,7 +216,7 @@ $color-dark-3xl: #292929;
         size: 35px;
     }
     line-height: 130%;
-    letter-spacing: 0.12rem;
+    letter-spacing: 0.13rem;
 }
 
 @mixin h4 {
@@ -159,7 +227,7 @@ $color-dark-3xl: #292929;
         size: 20px;
     }
     line-height: 115%;
-    letter-spacing: 0.06rem;
+    letter-spacing: 0.07rem;
 }
 
 @mixin h5 {
@@ -571,7 +639,8 @@ $color-dark-3xl: #292929;
                         width: 82px;
                         @include h4;
                         color: $color-dark-l;
-                        padding-top: 25px;
+                        padding-top: 28px;
+                        width: 83px;
                     }
                 }
                 &-transporation {
@@ -583,7 +652,7 @@ $color-dark-3xl: #292929;
                         width: 150px;
                         @include h4;
                         color: $color-dark-l;
-                        padding-top: 25px;
+                        padding-top: 29px;
                     }
                 }
                 &-toys {
@@ -594,7 +663,7 @@ $color-dark-3xl: #292929;
                         width: 60px;
                         @include h4;
                         color: $color-dark-l;
-                        padding-top: 25px;
+                        padding-top: 29px;
                     }
                 }
                 &-bowls_and_cups {
@@ -678,9 +747,11 @@ $color-dark-3xl: #292929;
     display: flex;
     background-color: $color-light-l;
     height: 464px;
-    padding: 82px 315px 74px 302px;
+    align-items: center;
+    justify-content: center;
     &__wrapper {
         display: flex;
+        margin-top: -20px;
         //justify-content: center;
     }
     & .wrapper {
@@ -706,11 +777,11 @@ $color-dark-3xl: #292929;
         &__description {
             @include parafraph-s;
             color: $color-dark-m;
+            width: 383px;
         }
         &__button {
             padding: 20px 0;
             button {
-                //padding: 10px 0px 0px 15px;
                 display: flex;
                 justify-content: center;
                 background: $color-primary;
@@ -743,25 +814,30 @@ $color-dark-3xl: #292929;
 
 .footer {
     display: flex;
-    padding: 40px 800px 0px 2px;
     height: 350px;
-    background: url(/assets/images/noise_transparent@2x.png), radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), #211F20;
+    & .wrapper {
+        justify-content: center;
+    }
+    background: url(/assets/images/noise_transparent@2x.png),
+    radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%),
+    #211F20;
     &__wrapper {
         display: flex;
-        //justify-content: center;
+        align-items: center;
     }
     &__content {
         display: flex;
-        width: 900px;
-        padding-left: 38px;
-        padding-top: 16px;
+        justify-content: space-between;
+        max-width: 900px;
+        margin-top: -8px;
+        margin-left: -278px;
         &__title {
             @include h3;
             color: $color-light-xl;
         }
         &__contacts {
             margin-right: 132px;
-            width: 307px;
+            max-width: 307px;
             &__email {
                 padding-top: 34px;
                 padding-bottom: 45px;
@@ -797,7 +873,7 @@ $color-dark-3xl: #292929;
             }
         }
         &__located {
-            width: 305px;
+            max-width: 305px;
             &-first {
                 display: flex;
                 padding-top: 34px;
@@ -833,9 +909,14 @@ $color-dark-3xl: #292929;
         }
     }
     &__image {
-        position: absolute;
+        align-items: center;
+        justify-content: center;
+        width: 1200px;
         width: 300px;
         height: 310px;
+        margin-right: -122px;
+        padding-left: 156px;
+        padding-top: 20px;
         left: calc(50% - 300px/2 + 450px);
     }
 }
