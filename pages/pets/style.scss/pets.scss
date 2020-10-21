@@ -227,13 +227,11 @@ $color-dark-3xl: #292929;
         justify-content: space-between;
         &-buttons {
             display: flex;
-            width: 320px;
-            margin-top: -31px;
-            margin-left: 20px;
+            padding-left: 31px;
             justify-content: center;
             button {
                 margin-top: 70px;
-                margin-left: 10px;
+                margin-left: 20px;
             }
             &-btnLeft {
                 background: none;
@@ -491,9 +489,9 @@ $color-dark-3xl: #292929;
             flex-direction: column;
             justify-content: center;
             width: 269px;
-            margin-top: -20px;
+            margin-top: -19px;
             &-card {
-                margin-top: 42px;
+                margin-top: 41px;
             }
             &-card:last-child,
             &-card:nth-child(7),
@@ -520,26 +518,35 @@ $color-dark-3xl: #292929;
             flex-direction: column;
             &-section {
                 width: 320px;
-                margin-left: -21px;
                 padding-bottom: 12px;
+                margin-left: -21px;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                &-buttons-left {
-                    order: 2;
-                    margin-right: 132px;
-                    margin-top: 19px;
-                    height: 0;
+                &-buttons {
+                    width: 320px;
+                    justify-content: space-between;
+                    margin-left: 15px;
+                    margin-top: -29px;
                     button {
-                        margin-top: 0;
+                        margin-left: -9px;
                     }
-                }
-                &-buttons-right {
-                    order: 2;
-                    margin-left: 132px;
-                    height: 0;
-                    button {
-                        margin-top: 0;
+                    &-left {
+                        order: 2;
+                        margin-right: 132px;
+                        margin-top: 19px;
+                        height: 0;
+                        button {
+                            margin-top: 0;
+                        }
+                    }
+                    &-right {
+                        order: 2;
+                        margin-left: 132px;
+                        height: 0;
+                        button {
+                            margin-top: 0;
+                        }
                     }
                 }
             }
@@ -613,10 +620,10 @@ $color-dark-3xl: #292929;
         }
     }
     .logo {
-        margin-left: -34px;
+        margin-left: 30px;
     }
     .menu {
-        margin-right: -34px;
+        margin-right: 30px;
     }
     .list {
         padding-top: 16px;
