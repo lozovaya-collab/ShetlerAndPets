@@ -356,6 +356,10 @@
   border-radius: 100px;
 }
 
+.pets__content-section-btnLeft:focus {
+  outline: none;
+}
+
 .pets__content-section-btnLeft:hover {
   background-color: #FDDCC4;
   border-color: #FDDCC4;
@@ -374,6 +378,10 @@
   border-radius: 100px;
 }
 
+.pets__content-section-btnRight:focus {
+  outline: none;
+}
+
 .pets__content-section-btnRight:hover {
   background-color: #FDDCC4;
   border-color: #FDDCC4;
@@ -388,9 +396,11 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   width: 991px;
+  overflow: hidden;
 }
 
 .pets__images-card {
+  margin-right: 91px;
   border-radius: 9px 9px 0px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
