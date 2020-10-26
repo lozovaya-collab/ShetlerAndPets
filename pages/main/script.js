@@ -118,14 +118,34 @@ let positionPrev = 0;
 
 document.querySelector('.pets__content-section-btnLeft').addEventListener('click', (e) => {
     console.log('prev');
+    if (positionNext === 1083 && itr === 1) {
+        for (let i = 0; i < fullPetsList.length; i++) {
+            pets_cards[i].style.transition = `transform 1s ease-in-out`;
+        }
+        positionNext = -16245
+        itr = 0
+    }
     positionPrev = positionNext + 1083
     positionNext = positionPrev
     console.log(positionPrev);
+    if (positionPrev === 1083 && itr === 0) {
+        positionPrev = positionNext = -16245
+    }
     for (let i = 0; i < fullPetsList.length; i++) {
+        if (positionNext === -16245) {
+            pets_cards[i].style.transition = `none`;
+        } else if (positionNext > -16245) {
+            pets_cards[i].style.transition = `transform 1s ease-in-out`;
+        }
         pets_box.children[i].style.transform = `translate(${positionPrev}px)`;
     }
-
-
+    if (positionPrev === 0) {
+        for (let i = 0; i < fullPetsList.length; i++) {
+            pets_cards[i].style.transition = `none`;
+        }
+        positionNext = -16245 - 1083
+        itr = 1
+    }
 
 });
 
@@ -144,6 +164,7 @@ document.querySelector('.pets__content-section-btnRight').addEventListener('clic
             pets_cards[i].style.transition = `transform 1s ease-in-out`;
         }
         pets_cards[i].style.transform = `translate(${positionNext}px)`;
+        itr += 1
     }
     if (positionNext < -16200) {
 
@@ -151,6 +172,7 @@ document.querySelector('.pets__content-section-btnRight').addEventListener('clic
             pets_cards[i].style.transition = `none`;
         }
         positionNext = 1083
+        itr = 1
     }
 
 
