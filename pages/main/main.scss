@@ -9,6 +9,15 @@ $color-dark-l: #545454;
 $color-dark-xl: #4C4C4C;
 $color-dark-2xl: #444444;
 $color-dark-3xl: #292929;
+$color-shadowed: rgba(41, 41, 41, 0.6);
+@mixin paragraph-mobile-menu {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 32px;
+    line-height: 160%;
+}
+
 @mixin h2 {
     font: {
         family: Georgia;
@@ -113,6 +122,34 @@ $color-dark-3xl: #292929;
     box-sizing: border-box;
 }
 
+.burger {
+    width: 30px;
+    height: 22px;
+    background: url("../../assets/icons/Burger.svg") no-repeat;
+    display: none;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -340px;
+    width: 320px;
+    height: 823px;
+    display: flex;
+    flex-direction: column;
+    background: $color-dark-3xl;
+    opacity: 0;
+    transition: all 1s;
+}
+
+.scroll_not {
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
 .header {
     width: 100%;
     position: absolute;
@@ -162,6 +199,7 @@ $color-dark-3xl: #292929;
         @include parafraph-l;
         font-size: 0.9375rem;
         &:hover {
+            color: $color-light-xl;
             cursor: pointer;
         }
         &_active {
@@ -184,7 +222,7 @@ $color-dark-3xl: #292929;
 }
 
 .hero {
-    background: url(/assets/images/noise_transparent.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+    background: url(../../assets/images/noise_transparent.png), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
     display: flex;
 }
 
@@ -281,6 +319,13 @@ $color-dark-3xl: #292929;
     }
 }
 
+.disabled {
+    color: $color-dark-s;
+    @include parafraph-l;
+    font-size: 0.9375rem;
+    pointer-events: none;
+}
+
 .pets {
     display: flex;
     background-color: $color-light-l;
@@ -315,7 +360,7 @@ $color-dark-3xl: #292929;
         justify-content: space-between;
         width: 1200px;
         &-btnLeft {
-            background: url(/assets/icons/Arrowleft.svg) no-repeat;
+            background: url(../../assets/icons/Arrowleft.svg) no-repeat;
             background-position: center;
             width: 52px;
             height: 52px;
@@ -333,7 +378,7 @@ $color-dark-3xl: #292929;
             }
         }
         &-btnRight {
-            background: url(/assets/icons/Arrowright.svg) no-repeat;
+            background: url(../../assets/icons/Arrowright.svg) no-repeat;
             background-position: center;
             width: 52px;
             height: 52px;
@@ -651,8 +696,10 @@ $color-dark-3xl: #292929;
     & .wrapper {
         justify-content: center;
     }
-    background: url(/assets/images/noise_transparent@2x.png),
-    radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%),
+    background: url(../../assets/images/noise_transparent@2x.png),
+    radial-gradient(110.67% 538.64% at 5.73% 50%,
+    #513D2F 0%,
+    #1A1A1C 100%),
     #211F20;
     &__wrapper {
         display: flex;
@@ -662,7 +709,7 @@ $color-dark-3xl: #292929;
         display: flex;
         justify-content: space-between;
         max-width: 900px;
-        margin-top: -8px;
+        margin-top: 1px;
         margin-left: -278px;
         &__title {
             @include h3;
@@ -762,6 +809,76 @@ $color-dark-3xl: #292929;
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
+    .burger {
+        display: block;
+        transition: 1s;
+        cursor: pointer;
+        margin-top: 20px;
+        margin-right: 53px;
+    }
+    .burger_rotate {
+        position: fixed;
+        right: 0px;
+        transform: rotate(90deg);
+        z-index: 1;
+    }
+    .shadowed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        background: $color-shadowed;
+    }
+    aside>a {
+        display: block;
+        align-self: flex-start;
+        text-decoration: none;
+    }
+    .sidebar {
+        &_active {
+            right: 0px;
+            opacity: 1;
+        }
+        .logo {
+            margin-top: 30px;
+            margin-left: 0px;
+        }
+        .menu__burger {
+            margin-top: 160px;
+            margin-left: -30px;
+            .list {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                list-style-type: none;
+                &__item {
+                    padding-bottom: 42px;
+                    a {
+                        text-decoration: none;
+                    }
+                }
+                &__link {
+                    @include paragraph-mobile-menu;
+                    color: $color-light-xl;
+                    text-decoration: none;
+                    &_active {
+                        border-bottom: solid 3px $color-primary;
+                    }
+                    &_disabled {
+                        color: $color-dark-s;
+                    }
+                    &_disabled:hover {
+                        color: $color-light-xl;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
     .header {
         margin-top: -30px;
         & .wrapper {
@@ -773,10 +890,10 @@ $color-dark-3xl: #292929;
         width: 196px;
     }
     .menu {
-        background: url(/assets/icons/Burger.svg) no-repeat;
         margin-right: 53px;
         margin-top: 20px;
         max-width: 30px;
+        display: none;
     }
     .menu ul {
         display: none;
@@ -875,12 +992,13 @@ $color-dark-3xl: #292929;
             margin-top: 23px;
         }
         &__images {
-            flex-direction: column;
             justify-content: center;
             width: 269px;
             margin-top: -51px;
             &-card {
                 margin-top: 74px;
+                margin-right: -135px;
+                margin-left: 135px;
             }
             &-card:last-child,
             &-card:nth-child(2) {
@@ -1220,18 +1338,21 @@ $color-dark-3xl: #292929;
         &__image-wrapper {
             order: 1;
             padding-top: 80px;
-            padding-left: 65px;
+            margin-left: 15px;
         }
         &__content {
-            margin-left: -121px;
+            margin-left: -171px;
         }
     }
     .pets {
         width: 100%;
         justify-content: center;
         &__images {
+            width: 581px;
+            margin-left: 55px;
             &-card {
-                margin-left: 41px;
+                margin-left: -12px;
+                margin-right: 52px;
             }
             &-card:last-child {
                 display: none;
@@ -1266,9 +1387,8 @@ $color-dark-3xl: #292929;
                     justify-content: space-between;
                     text-align: center;
                     flex-wrap: wrap;
-                    width: 410px;
                     min-height: 274px;
-                    width: 718px;
+                    width: 691px;
                     margin-left: -1px;
                     &>div {
                         display: flex;

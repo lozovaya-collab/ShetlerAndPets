@@ -9,6 +9,15 @@ $color-dark-l: #545454;
 $color-dark-xl: #4C4C4C;
 $color-dark-2xl: #444444;
 $color-dark-3xl: #292929;
+$color-shadowed: rgba(41, 41, 41, 0.6);
+@mixin paragraph-mobile-menu {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 32px;
+    line-height: 160%;
+}
+
 @media screen and (max-width: 1100px) {
     .hero__content {
         flex-direction: column;
@@ -119,11 +128,38 @@ $color-dark-3xl: #292929;
     box-sizing: border-box;
 }
 
+.burger {
+    width: 30px;
+    height: 22px;
+    background: url("../../assets/icons/Burger-pets.svg");
+    display: none;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 320px;
+    height: 823px;
+    display: flex;
+    flex-direction: column;
+    background: $color-dark-3xl;
+    opacity: 0;
+    transition: all 1s;
+}
+
+.scroll_not {
+    overflow: hidden;
+}
+
 .header {
     width: 100%;
     height: 120px;
     position: relative;
     top: 30px;
+    a {
+        text-decoration: none;
+    }
 }
 
 .wrapper {
@@ -170,12 +206,20 @@ $color-dark-3xl: #292929;
 }
 
 .list__link {
-    color: $color-light-xl;
+    color: $color-dark-l;
     @include parafraph-l;
     font-size: 0.9375rem;
 }
 
+.disabled {
+    color: $color-dark-l;
+    @include parafraph-l;
+    font-size: 0.9375rem;
+    pointer-events: none;
+}
+
 .list__link:hover {
+    color: $color-dark-3xl;
     cursor: pointer;
 }
 
@@ -185,7 +229,7 @@ $color-dark-3xl: #292929;
 }
 
 .list__link_disabled {
-    color: $color-dark-3xl;
+    color: $color-dark-l;
 }
 
 .pets {
@@ -354,8 +398,10 @@ $color-dark-3xl: #292929;
     & .wrapper {
         justify-content: center;
     }
-    background: url(/assets/images/noise_transparent@2x.png),
-    radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%),
+    background: url(../../assets/images/noise_transparent@2x.png),
+    radial-gradient(110.67% 538.64% at 5.73% 50%,
+    #513D2F 0%,
+    #1A1A1C 100%),
     #211F20;
     &__wrapper {
         display: flex;
@@ -458,6 +504,86 @@ $color-dark-3xl: #292929;
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
+    .burger {
+        display: block;
+        transition: 1s;
+        cursor: pointer;
+        margin-top: 20px;
+        margin-right: 53px;
+    }
+    .burger_rotate {
+        position: fixed;
+        right: 0px;
+        transform: rotate(90deg);
+        z-index: 1;
+    }
+    .shadowed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        background: $color-shadowed;
+    }
+    aside>a {
+        display: block;
+        align-self: flex-start;
+        text-decoration: none;
+    }
+    .sidebar {
+        &_active {
+            right: 0px;
+            opacity: 1;
+        }
+        .logo {
+            margin-top: 30px;
+            margin-left: 0px;
+            &__title {
+                color: $color-primary;
+                @include logo__title;
+            }
+            &__subtitle {
+                margin-top: 10px;
+                color: $color-light-xl;
+                text-align: center;
+                @include logo__subtitle;
+            }
+        }
+        .menu__burger {
+            margin-top: 160px;
+            margin-left: 0px;
+            .list {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                list-style-type: none;
+                &__item {
+                    padding-bottom: 42px;
+                    a {
+                        text-decoration: none;
+                    }
+                }
+                &__link {
+                    @include paragraph-mobile-menu;
+                    color: $color-light-xl;
+                    text-decoration: none;
+                    &_active {
+                        border-bottom: solid 3px $color-primary;
+                    }
+                    &_disabled {
+                        color: $color-dark-s;
+                    }
+                    &_disabled:hover {
+                        color: $color-light-xl;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
     .header {
         & .wrapper {
             max-width: 320px;
@@ -468,10 +594,10 @@ $color-dark-3xl: #292929;
         width: 196px;
     }
     .menu {
-        background: url(/assets/icons/Burger.svg) no-repeat;
         margin-right: 53px;
         margin-top: 20px;
         max-width: 30px;
+        display: none;
     }
     .menu ul {
         display: none;
@@ -641,6 +767,10 @@ $color-dark-3xl: #292929;
         }
         &__images {
             width: 635px;
+            &-card {
+                margin-left: 31px;
+                margin-right: 10px
+            }
             &-card:last-child,
             &-card:nth-child(7) {
                 display: none;
@@ -654,7 +784,7 @@ $color-dark-3xl: #292929;
             &-section {
                 max-width: 768px;
                 margin-top: -29px;
-                margin-left: -36px;
+                margin-left: -18px;
                 align-items: center;
                 justify-content: center;
                 &-buttons {

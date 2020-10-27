@@ -3,13 +3,17 @@ let fullPetsList = []
 const request = new XMLHttpRequest();
 const pets_box = document.querySelector('.pets__images')
 const pets_cards = pets_box.children
+let positionNext = 0;
+let positionPrev = 0;
+let pn_1, pn_2
 
-
+const prevButton = document.querySelector('.pets__content-section-btnLeft')
+const nextButton = document.querySelector('.pets__content-section-btnRight')
 
 request.open('GET', './pets.json')
 
 
-request.onload = () => { console.log(request.response) };
+
 fetch('./pets.json').then(res => res.json()).then(list => {
     pets = list;
     fullPetsList = (() => {
@@ -54,6 +58,7 @@ const createPets = (petsList) => {
 const createCards = (petsList) => {
     let str = ''
     for (let i = 0; i < petsList.length; i++) {
+
         str += `<div class="pets__images-card"><img alt="${petsList[i].name}" src="${petsList[i].img}"><span>${petsList[i].name}</span><button type="button" class="pets__images-card-button">Learn more</button></div>`
     }
 
@@ -113,51 +118,60 @@ const sort6recursively = (list) => {
     return list;
 }
 request.send()
-let positionNext = 0;
-let positionPrev = 0;
 
-document.querySelector('.pets__content-section-btnLeft').addEventListener('click', (e) => {
-    console.log('prev');
-    if (positionNext === 1083 && itr === 1) {
+
+if (pets_box.clientWidth > 980) {
+    pn_1 = 1083
+    pn_2 = -16245
+} else if (pets_box.clientWidth < 600 && pets_box.clientWidth > 500) {
+    pn_1 = 620
+    pn_2 = -13640
+} else {
+    pn_1 = 270
+    pn_2 = -6210
+}
+prevButton.addEventListener('click', (e) => {
+
+
+
+    if (positionNext === pn_1 && itr === 1) {
         for (let i = 0; i < fullPetsList.length; i++) {
             pets_cards[i].style.transition = `transform 1s ease-in-out`;
         }
-        positionNext = -16245
+        positionNext = pn_2
         itr = 0
     }
-    positionPrev = positionNext + 1083
+    positionPrev = positionNext + pn_1
     positionNext = positionPrev
-    console.log(positionPrev);
-    if (positionPrev === 1083 && itr === 0) {
-        positionPrev = positionNext = -16245
+
+    if (positionPrev === pn_1 && itr === 0) {
+        positionPrev = positionNext = pn_2
     }
     for (let i = 0; i < fullPetsList.length; i++) {
-        if (positionNext === -16245) {
+        if (positionNext === pn_2) {
             pets_cards[i].style.transition = `none`;
-        } else if (positionNext > -16245) {
+        } else if (positionNext > pn_2) {
             pets_cards[i].style.transition = `transform 1s ease-in-out`;
         }
+        pets_cards[i].style.display = 'flex'
         pets_box.children[i].style.transform = `translate(${positionPrev}px)`;
     }
     if (positionPrev === 0) {
         for (let i = 0; i < fullPetsList.length; i++) {
             pets_cards[i].style.transition = `none`;
         }
-        positionNext = -16245 - 1083
+        positionNext = pn_2 - pn_1
         itr = 1
     }
-
 });
 
 
 
 let itr = 0
 
-document.querySelector('.pets__content-section-btnRight').addEventListener('click', (e) => {
-    console.log('next');
+nextButton.addEventListener('click', (e) => {
 
-    positionNext = positionNext - 1083
-    console.log(positionNext);
+    positionNext = positionNext - pn_1
 
     for (let i = 0; i < fullPetsList.length; i++) {
         if (positionNext < 0) {
@@ -166,12 +180,12 @@ document.querySelector('.pets__content-section-btnRight').addEventListener('clic
         pets_cards[i].style.transform = `translate(${positionNext}px)`;
         itr += 1
     }
-    if (positionNext < -16200) {
+    if (positionNext < (pn_2 + 45)) {
 
         for (let i = 0; i < fullPetsList.length; i++) {
             pets_cards[i].style.transition = `none`;
         }
-        positionNext = 1083
+        positionNext = pn_1
         itr = 1
     }
 
@@ -179,20 +193,48 @@ document.querySelector('.pets__content-section-btnRight').addEventListener('clic
 });
 
 
-function moveSlides(index) {
-    if (index === fullPetsList.length - 1) {
-        index = 0
-    }
+//бургер
+const burger = document.querySelector('.burger'),
+    logo = document.querySelector('.logo'),
+    sidebar = document.querySelector('.sidebar'),
+    shadowed = document.querySelector('.shadowed'),
+    link = document.querySelector('.link__burger');
 
-    pets_box.children[index].transform = `translate(${positionNext - 2 * 1083}px)`
+let navOpen = false;
 
-    pets_box.children[index + 1].transform = `translate(${positionNext - 2 * 1083}px)`
-
-    pets_box.children[index + 2].transform = `translate(${positionNext - 2 * 1083}px)`
-
-
-
+function hideBurger() {
+    logo.style.opacity = '1';
+    shadowed.style.display = 'none';
+    burger.classList.remove('burger_rotate');
+    sidebar.classList.remove('sidebar_active');
+    document.body.classList.remove('scroll_not');
 }
 
+burger.addEventListener('click', () => {
+    navOpen = !navOpen;
+    if (navOpen) {
+        logo.style.opacity = '0';
+        shadowed.style.display = 'block';
+        burger.classList.add('burger_rotate');
+        sidebar.classList.add('sidebar_active');
+        document.body.classList.add('scroll_not');
+    } else {
+        hideBurger()
+    }
+});
 
-(fullPetsList / itemsPerPage)
+shadowed.addEventListener('click', () => {
+    hideBurger()
+});
+
+link.addEventListener('click', () => {
+    hideBurger()
+});
+
+const linksHeader = document.querySelectorAll('.list__link')
+
+for (let i = 0; i < linksHeader.length; i++) {
+    if (linksHeader[i].href === '') {
+        linksHeader[i].className = 'disabled'
+    }
+}
